@@ -6,8 +6,7 @@ import com.ct.entitycommon.entity.CasesPerCountry;
 import com.ct.entitycommon.entity.CasesPerState;
 import com.ct.entitycommon.entity.Country;
 import com.ct.entitycommon.entity.State;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,15 +14,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+@Slf4j
 public class CSVDataToEntityDataConverter {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(CSVDataToEntityDataConverter.class);
 
     private CSVDataToEntityDataConverter() {}
 
     public static CoronavirusEntityData convertToEntityData(List<CSVCoronavirusDataItem> coronavirusDataItems) {
-        LOGGER.info("Constructing coronavirus entity data...");
+        log.info("Constructing coronavirus entity data...");
         List<Country> countries = new ArrayList<>();
         List<State> states = new ArrayList<>();
         List<CasesPerCountry> allCasesPerCountry = new ArrayList<>();
@@ -46,7 +43,7 @@ public class CSVDataToEntityDataConverter {
 
         allCasesPerCountry.addAll(constructCasesPerCountryByCasesPerStates(allCasesPerState));
 
-        LOGGER.info("Finished constructing coronavirus entity data, " +
+        log.info("Finished constructing coronavirus entity data, " +
                 "entity stats: " +
                 "countries [{}], states [{}], cases per country [{}], cases per state [{}] ...",
                 countries.size(), states.size(), allCasesPerCountry.size(), allCasesPerState.size());

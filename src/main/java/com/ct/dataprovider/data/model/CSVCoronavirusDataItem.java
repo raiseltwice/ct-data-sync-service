@@ -14,9 +14,7 @@ public class CSVCoronavirusDataItem {
     private String country;
     private Double latitude;
     private Double longitude;
-
     private Map<LocalDate, Integer> casesPerDate;
-
 
     public CSVCoronavirusDataItem(String state, String country,
                                   Double latitude, Double longitude,
@@ -26,6 +24,25 @@ public class CSVCoronavirusDataItem {
         this.latitude = latitude;
         this.longitude = longitude;
         this.casesPerDate = casesPerDate;
+    }
+
+    public static CSVCoronavirusDataItem constructCoronavirusDataItem(Map<String, String> valuesToHeaders) {
+        String stateName = valuesToHeaders.get(CSVHeaders.STATE_HEADER_NAME);
+        valuesToHeaders.remove(CSVHeaders.STATE_HEADER_NAME);
+        String countryName = valuesToHeaders.get(CSVHeaders.COUNTRY_HEADER_NAME);
+        valuesToHeaders.remove(CSVHeaders.COUNTRY_HEADER_NAME);
+        Double latitude = Double.valueOf(valuesToHeaders.get(CSVHeaders.LATITUDE_HEADER_NAME));
+        valuesToHeaders.remove(CSVHeaders.LATITUDE_HEADER_NAME);
+        Double longitude = Double.valueOf(valuesToHeaders.get(CSVHeaders.LONGITUDE_HEADER_NAME));
+        valuesToHeaders.remove(CSVHeaders.LONGITUDE_HEADER_NAME);
+
+        Map<LocalDate, Integer> casesPerDate = valuesToHeaders.entrySet().stream()
+                .collect(Collectors.toMap(
+                        entry -> LocalDate.parse(entry.getKey(),
+                                DateTimeFormatter.ofPattern("M/d/yy", Locale.ENGLISH)),
+                        entry -> Integer.valueOf(entry.getValue())
+                ));
+        return new CSVCoronavirusDataItem(stateName, countryName, latitude, longitude,  casesPerDate);
     }
 
     public String getState() {
@@ -66,25 +83,5 @@ public class CSVCoronavirusDataItem {
 
     public void setCasesPerDate(Map<LocalDate, Integer> casesPerDate) {
         this.casesPerDate = casesPerDate;
-    }
-
-
-    public static CSVCoronavirusDataItem constructCoronavirusDataItem(Map<String, String> valuesToHeaders) {
-        String stateName = valuesToHeaders.get(CSVHeaders.STATE_HEADER_NAME);
-        valuesToHeaders.remove(CSVHeaders.STATE_HEADER_NAME);
-        String countryName = valuesToHeaders.get(CSVHeaders.COUNTRY_HEADER_NAME);
-        valuesToHeaders.remove(CSVHeaders.COUNTRY_HEADER_NAME);
-        Double latitude = Double.valueOf(valuesToHeaders.get(CSVHeaders.LATITUDE_HEADER_NAME));
-        valuesToHeaders.remove(CSVHeaders.LATITUDE_HEADER_NAME);
-        Double longitude = Double.valueOf(valuesToHeaders.get(CSVHeaders.LONGITUDE_HEADER_NAME));
-        valuesToHeaders.remove(CSVHeaders.LONGITUDE_HEADER_NAME);
-
-        Map<LocalDate, Integer> casesPerDate = valuesToHeaders.entrySet().stream()
-                .collect(Collectors.toMap(
-                        entry -> LocalDate.parse(entry.getKey(),
-                                DateTimeFormatter.ofPattern("M/d/yy", Locale.ENGLISH)),
-                        entry -> Integer.valueOf(entry.getValue())
-                ));
-        return new CSVCoronavirusDataItem(stateName, countryName, latitude, longitude,  casesPerDate);
     }
 }

@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
 
 public class CSVToEntityUtils {
 
+    private CSVToEntityUtils() {}
+
     public static List<CasesPerState> constructCasesPerState(CSVCoronavirusDataItem coronavirusDataItem,
                                                              State state) {
         return coronavirusDataItem.getCasesPerDate().entrySet().stream()

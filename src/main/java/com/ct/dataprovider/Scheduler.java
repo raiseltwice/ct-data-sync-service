@@ -3,15 +3,13 @@ package com.ct.dataprovider;
 import com.ct.dataprovider.data.provider.EntityDataProvider;
 import com.ct.dataprovider.db.CoronavirusEntityData;
 import com.ct.dataprovider.db.DataStore;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
+@Slf4j
 public class Scheduler {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(Scheduler.class);
 
     private final EntityDataProvider entityDataProvider;
     private final DataStore dataStore;
@@ -23,10 +21,9 @@ public class Scheduler {
 
     @Scheduled(cron = "${app.data.reinsert-cron}")
     public void loadDataAndStoreInDatabase() {
-        LOGGER.info("Starting reloading data from [{}]...", entityDataProvider.getInfo());
-
+        log.info("Starting reloading data from [{}]...", entityDataProvider.getInfo());
         CoronavirusEntityData coronavirusData = entityDataProvider.getCoronavirusEntityData();
         dataStore.reInsertData(coronavirusData);
-        LOGGER.info("Finished reloading data from [{}]...", entityDataProvider.getInfo());
+        log.info("Finished reloading data from [{}]...", entityDataProvider.getInfo());
     }
 }
