@@ -1,4 +1,4 @@
-package com.ct.dataprovider.data.provider.file.csv.utils;
+package com.ct.dataprovider.utils;
 
 public class CSVHeaders {
 

@@ -1,4 +1,4 @@
-package com.ct.dataprovider.db.repository;
+package com.ct.dataprovider.repository;
 
 import com.ct.entitycommon.entity.StateCasesPerDate;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,0 +1,20 @@
+package com.ct.dataprovider.reader.model;
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.time.LocalDate;
+import java.util.Map;
+
+@Getter
+@Setter
+@Builder
+public class CSVCoronavirusDataItem {
+
+    private String state;
+    private String country;
+    private Double latitude;
+    private Double longitude;
+    private Map<LocalDate, Integer> casesPerDate;
+}

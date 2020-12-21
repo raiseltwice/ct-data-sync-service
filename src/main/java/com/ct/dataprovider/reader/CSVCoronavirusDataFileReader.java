@@ -1,6 +1,7 @@
-package com.ct.dataprovider.data.reader;
+package com.ct.dataprovider.reader;
 
-import com.ct.dataprovider.data.model.csv.CSVCoronavirusDataItem;
+import com.ct.dataprovider.reader.model.CSVCoronavirusDataItem;
+import com.ct.dataprovider.utils.CSVDataUtils;
 import com.opencsv.CSVReaderHeaderAware;
 import com.opencsv.exceptions.CsvValidationException;
 import lombok.extern.slf4j.Slf4j;
@@ -23,14 +24,14 @@ public class CSVCoronavirusDataFileReader {
         this.fileName = fileName;
     }
 
-    public List<CSVCoronavirusDataItem> readCSVCoronavirusData() {
+    public List<CSVCoronavirusDataItem> readData() {
         List<CSVCoronavirusDataItem> coronavirusDataItems = new ArrayList<>();
         try (FileReader fileReader = new FileReader(fileName)) {
             CSVReaderHeaderAware csvReader = new CSVReaderHeaderAware(fileReader);
             Map<String, String> valuesToHeaders;
             while ((valuesToHeaders = csvReader.readMap()) != null) {
                 coronavirusDataItems.add(
-                        CSVCoronavirusDataItem.constructCoronavirusDataItem(valuesToHeaders));
+                        CSVDataUtils.constructCoronavirusDataItem(valuesToHeaders));
             }
         } catch (IOException | CsvValidationException e) {
             log.error("Error while reading [{}] file: [{}]", fileName, e.getMessage());

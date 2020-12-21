@@ -1,8 +1,8 @@
 package com.ct.dataprovider;
 
-import com.ct.dataprovider.data.provider.EntityDataProvider;
-import com.ct.dataprovider.db.CoronavirusEntityData;
-import com.ct.dataprovider.db.DataStore;
+import com.ct.dataprovider.provider.EntityDataProvider;
+import com.ct.dataprovider.dao.CoronavirusEntityData;
+import com.ct.dataprovider.dao.DataStore;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -22,7 +22,7 @@ public class Scheduler {
     @Scheduled(cron = "${app.data.reinsert-cron}")
     public void loadDataAndStoreInDatabase() {
         log.info("Starting reloading data from [{}]...", entityDataProvider.getInfo());
-        CoronavirusEntityData coronavirusData = entityDataProvider.getCoronavirusEntityData();
+        CoronavirusEntityData coronavirusData = entityDataProvider.getData();
         dataStore.reInsertData(coronavirusData);
         log.info("Finished reloading data from [{}]...", entityDataProvider.getInfo());
     }

@@ -1,12 +1,10 @@
-package com.ct.dataprovider.db;
+package com.ct.dataprovider.dao;
 
-import com.ct.dataprovider.db.repository.CasesPerCountryRepository;
-import com.ct.dataprovider.db.repository.CasesPerStateRepository;
-import com.ct.dataprovider.db.repository.CountryRepository;
-import com.ct.dataprovider.db.repository.StateRepository;
+import com.ct.dataprovider.repository.CasesPerCountryRepository;
+import com.ct.dataprovider.repository.CasesPerStateRepository;
+import com.ct.dataprovider.repository.CountryRepository;
+import com.ct.dataprovider.repository.StateRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,12 +30,12 @@ public class CoronavirusDataStore implements DataStore {
     @Override
     @Transactional
     public void reInsertData(CoronavirusEntityData coronavirusEntityData) {
-        eraseData();
-        storeDataAsBatch(coronavirusEntityData);
+        deleteAll();
+        saveAll(coronavirusEntityData);
     }
 
     @Override
-    public void storeDataAsBatch(CoronavirusEntityData coronavirusEntityData) {
+    public void saveAll(CoronavirusEntityData coronavirusEntityData) {
         log.info("Saving coronavirus data...");
         countryRepository.saveAll(coronavirusEntityData.getCountries());
         stateRepository.saveAll(coronavirusEntityData.getStates());
@@ -47,7 +45,7 @@ public class CoronavirusDataStore implements DataStore {
     }
 
     @Override
-    public void eraseData() {
+    public void deleteAll() {
         log.info("Erasing all related data...");
         casesPerCountryRepository.deleteAllInBatch();
         casesPerStateRepository.deleteAllInBatch();
