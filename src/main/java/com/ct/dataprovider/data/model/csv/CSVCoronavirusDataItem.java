@@ -1,4 +1,4 @@
-package com.ct.dataprovider.data.model;
+package com.ct.dataprovider.data.model.csv;
 
 import com.ct.dataprovider.data.provider.file.csv.utils.CSVHeaders;
 

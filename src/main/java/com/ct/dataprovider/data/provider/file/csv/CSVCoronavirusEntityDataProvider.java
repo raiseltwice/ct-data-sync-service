@@ -1,6 +1,6 @@
 package com.ct.dataprovider.data.provider.file.csv;
 
-import com.ct.dataprovider.data.model.CSVCoronavirusDataItem;
+import com.ct.dataprovider.data.model.csv.CSVCoronavirusDataItem;
 import com.ct.dataprovider.data.provider.EntityDataProvider;
 import com.ct.dataprovider.data.provider.file.csv.utils.CSVDataToEntityDataConverter;
 import com.ct.dataprovider.data.reader.CSVCoronavirusDataFileReader;

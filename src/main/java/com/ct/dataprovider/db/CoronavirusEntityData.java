@@ -1,9 +1,9 @@
 package com.ct.dataprovider.db;
 
-import com.ct.entitycommon.entity.CasesPerCountry;
-import com.ct.entitycommon.entity.CasesPerState;
 import com.ct.entitycommon.entity.Country;
+import com.ct.entitycommon.entity.CountryCasesPerDate;
 import com.ct.entitycommon.entity.State;
+import com.ct.entitycommon.entity.StateCasesPerDate;
 
 import java.util.List;
 
@@ -11,13 +11,13 @@ public class CoronavirusEntityData {
 
     private final List<Country> countries;
     private final List<State> states;
-    private final List<CasesPerCountry> casesPerCountry;
-    private final List<CasesPerState> casesPerState;
+    private final List<CountryCasesPerDate> casesPerCountry;
+    private final List<StateCasesPerDate> casesPerState;
 
     public CoronavirusEntityData(List<Country> countries,
                                  List<State> states,
-                                 List<CasesPerCountry> casesPerCountry,
-                                 List<CasesPerState> casesPerState) {
+                                 List<CountryCasesPerDate> casesPerCountry,
+                                 List<StateCasesPerDate> casesPerState) {
         this.countries = countries;
         this.states = states;
         this.casesPerCountry = casesPerCountry;
@@ -32,11 +32,11 @@ public class CoronavirusEntityData {
         return states;
     }
 
-    public List<CasesPerCountry> getCasesPerCountry() {
+    public List<CountryCasesPerDate> getCasesPerCountry() {
         return casesPerCountry;
     }
 
-    public List<CasesPerState> getCasesPerState() {
+    public List<StateCasesPerDate> getCasesPerState() {
         return casesPerState;
     }
 }

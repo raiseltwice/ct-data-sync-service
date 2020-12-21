@@ -1,11 +1,11 @@
 package com.ct.dataprovider.data.provider.file.csv.utils;
 
-import com.ct.dataprovider.data.model.CSVCoronavirusDataItem;
+import com.ct.dataprovider.data.model.csv.CSVCoronavirusDataItem;
 import com.ct.dataprovider.db.CoronavirusEntityData;
-import com.ct.entitycommon.entity.CasesPerCountry;
-import com.ct.entitycommon.entity.CasesPerState;
 import com.ct.entitycommon.entity.Country;
+import com.ct.entitycommon.entity.CountryCasesPerDate;
 import com.ct.entitycommon.entity.State;
+import com.ct.entitycommon.entity.StateCasesPerDate;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
@@ -23,55 +23,57 @@ public class CSVDataToEntityDataConverter {
         log.info("Constructing coronavirus entity data...");
         List<Country> countries = new ArrayList<>();
         List<State> states = new ArrayList<>();
-        List<CasesPerCountry> allCasesPerCountry = new ArrayList<>();
-        List<CasesPerState> allCasesPerState = new ArrayList<>();
+        List<CountryCasesPerDate> allCountryCasesPerDate = new ArrayList<>();
+        List<StateCasesPerDate> allStateCasesPerDate = new ArrayList<>();
 
         for (CSVCoronavirusDataItem csvCoronavirusDataItem : coronavirusDataItems) {
-            Country country = getCountry(csvCoronavirusDataItem, countries);
+            Country country = constructOrGetCountry(csvCoronavirusDataItem, countries);
             State state = CSVToEntityUtils.constructState(csvCoronavirusDataItem, country);
             if (state != null) {
                 states.add(state);
-                List<CasesPerState> casesPerState =
+                List<StateCasesPerDate> stateCasesPerDate =
                         CSVToEntityUtils.constructCasesPerState(csvCoronavirusDataItem, state);
-                allCasesPerState.addAll(casesPerState);
+                allStateCasesPerDate.addAll(stateCasesPerDate);
             } else {
-                List<CasesPerCountry> casesPerCountry =
+                List<CountryCasesPerDate> countryCasesPerDate =
                         CSVToEntityUtils.constructCasesPerCountry(csvCoronavirusDataItem, country);
-                allCasesPerCountry.addAll(casesPerCountry);
+                allCountryCasesPerDate.addAll(countryCasesPerDate);
             }
         }
 
-        allCasesPerCountry.addAll(constructCasesPerCountryByCasesPerStates(allCasesPerState));
+        allCountryCasesPerDate.addAll(constructCountryCasesPerDateByStateCasesPerDate(allStateCasesPerDate));
 
         log.info("Finished constructing coronavirus entity data, " +
                 "entity stats: " +
                 "countries [{}], states [{}], cases per country [{}], cases per state [{}] ...",
-                countries.size(), states.size(), allCasesPerCountry.size(), allCasesPerState.size());
+                countries.size(), states.size(), allCountryCasesPerDate.size(), allStateCasesPerDate.size());
 
-        return new CoronavirusEntityData(countries, states, allCasesPerCountry, allCasesPerState);
+        return new CoronavirusEntityData(countries, states, allCountryCasesPerDate, allStateCasesPerDate);
     }
 
     // some countries don't have statistics of cases per date of whole country but do of their states.
     // derives the statistics of cases per date of country from cases per state data
-    private static List<CasesPerCountry> constructCasesPerCountryByCasesPerStates(List<CasesPerState> allCasesPerDateOfState) {
-        Map<Country, Map<LocalDate, Integer>> casesPerDateOfCountry = new HashMap<>();
+    private static List<CountryCasesPerDate> constructCountryCasesPerDateByStateCasesPerDate(
+            List<StateCasesPerDate> allStateCasesPerDate
+    ) {
+        Map<Country, Map<LocalDate, Integer>> countryCasesPerDate = new HashMap<>();
 
-        allCasesPerDateOfState.forEach(casesPerDateOfState -> {
-            Country country = casesPerDateOfState.getState().getCountry();
-            casesPerDateOfCountry.putIfAbsent(country, new HashMap<>());
-            Map<LocalDate, Integer> casesPerDate = casesPerDateOfCountry.get(country);
-            casesPerDate.merge(casesPerDateOfState.getDate(), casesPerDateOfState.getNumberOfCases(), Integer::sum);
+        allStateCasesPerDate.forEach(stateCasesPerDate -> {
+            Country country = stateCasesPerDate.getState().getCountry();
+            countryCasesPerDate.putIfAbsent(country, new HashMap<>());
+            Map<LocalDate, Integer> casesPerDate = countryCasesPerDate.get(country);
+            casesPerDate.merge(stateCasesPerDate.getDate(), stateCasesPerDate.getNumberOfCases(), Integer::sum);
         });
-        List<CasesPerCountry> casesPerCountry = new ArrayList<>();
-        casesPerDateOfCountry.forEach((country, casesPerDate) ->
+        List<CountryCasesPerDate> countryCasesPerDateByStateCasesPerDate = new ArrayList<>();
+        countryCasesPerDate.forEach((country, casesPerDate) ->
                 casesPerDate.forEach((date, cases) ->
-                        casesPerCountry.add(new CasesPerCountry(country, date, cases))));
+                        countryCasesPerDateByStateCasesPerDate.add(new CountryCasesPerDate(country, date, cases))));
 
-        return casesPerCountry;
+        return countryCasesPerDateByStateCasesPerDate;
     }
 
     // initial data item duplicates country for each state
-    private static Country getCountry(CSVCoronavirusDataItem coronavirusDataItem, List<Country> countries) {
+    private static Country constructOrGetCountry(CSVCoronavirusDataItem coronavirusDataItem, List<Country> countries) {
         Country country = CSVToEntityUtils.constructCountry(coronavirusDataItem);
         int index;
         // the same as contains, but reuse index

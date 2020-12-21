@@ -1,10 +1,10 @@
 package com.ct.dataprovider.data.provider.file.csv.utils;
 
-import com.ct.dataprovider.data.model.CSVCoronavirusDataItem;
-import com.ct.entitycommon.entity.CasesPerCountry;
-import com.ct.entitycommon.entity.CasesPerState;
+import com.ct.dataprovider.data.model.csv.CSVCoronavirusDataItem;
 import com.ct.entitycommon.entity.Country;
+import com.ct.entitycommon.entity.CountryCasesPerDate;
 import com.ct.entitycommon.entity.State;
+import com.ct.entitycommon.entity.StateCasesPerDate;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
@@ -14,17 +14,17 @@ public class CSVToEntityUtils {
 
     private CSVToEntityUtils() {}
 
-    public static List<CasesPerState> constructCasesPerState(CSVCoronavirusDataItem coronavirusDataItem,
-                                                             State state) {
+    public static List<StateCasesPerDate> constructCasesPerState(CSVCoronavirusDataItem coronavirusDataItem,
+                                                                 State state) {
         return coronavirusDataItem.getCasesPerDate().entrySet().stream()
-                .map(entry -> new CasesPerState(state, entry.getKey(), entry.getValue()))
+                .map(entry -> new StateCasesPerDate(state, entry.getKey(), entry.getValue()))
                 .collect(Collectors.toList());
     }
 
-    public static List<CasesPerCountry> constructCasesPerCountry(CSVCoronavirusDataItem coronavirusDataItem,
-                                                                 Country country) {
+    public static List<CountryCasesPerDate> constructCasesPerCountry(CSVCoronavirusDataItem coronavirusDataItem,
+                                                                     Country country) {
         return coronavirusDataItem.getCasesPerDate().entrySet().stream()
-                .map(entry -> new CasesPerCountry(country, entry.getKey(), entry.getValue()))
+                .map(entry -> new CountryCasesPerDate(country, entry.getKey(), entry.getValue()))
                 .collect(Collectors.toList());
     }
 

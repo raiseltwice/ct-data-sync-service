@@ -21,4 +21,3 @@ app:
     provider:
       file:
         csv: 1.csv #local file, todo - move the file out of the project directory
-      network:

@@ -77,16 +77,16 @@ databaseChangeLog:
                   constraints:
                     nullable: false
   - changeSet:
-      id: 3_add_cases_per_country_table
+      id: 3_add_country_cases_per_date_table
       author: bo
       preConditions:
         on-fail: mark_ran
         not:
           tableExists:
-            tableName: cases_per_country
+            tableName: country_cases_per_date
       changes:
         - createTable:
-            tableName: cases_per_country
+            tableName: country_cases_per_date
             columns:
               - column:
                   name: id
@@ -113,16 +113,16 @@ databaseChangeLog:
                   constraints:
                     nullable: false
   - changeSet:
-      id: 4_add_cases_per_state_table
+      id: 4_add_state_cases_per_date_table
       author: bo
       preConditions:
         on-fail: mark_ran
         not:
           tableExists:
-            tableName: cases_per_state
+            tableName: state_cases_per_date
       changes:
         - createTable:
-            tableName: cases_per_state
+            tableName: state_cases_per_date
             columns:
               - column:
                   name: id
