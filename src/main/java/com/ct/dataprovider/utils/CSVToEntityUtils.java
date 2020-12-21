@@ -30,7 +30,6 @@ public class CSVToEntityUtils {
 
         for (CSVCoronavirusDataItem csvCoronavirusDataItem : coronavirusDataItems) {
             Country country = getOrConstructCountry(csvCoronavirusDataItem, countries);
-            countries.add(country);
             State state = constructState(csvCoronavirusDataItem, country);
             if (state != null) {
                 states.add(state);
@@ -57,17 +56,13 @@ public class CSVToEntityUtils {
     // initial data item duplicates country for each state
     // gets rid of country duplicates
     private static Country getOrConstructCountry(CSVCoronavirusDataItem coronavirusDataItem, List<Country> countries) {
-        Country country = null;
-        if (countries.isEmpty()) {
-            country = constructCountry(coronavirusDataItem);
+        Country country = CSVToEntityUtils.constructCountry(coronavirusDataItem);
+        int index;
+        // the same as contains, but reuse index
+        if ((index = countries.indexOf(country)) == -1) {
+            countries.add(country);
         } else {
-            for (Country countryItem : countries) {
-                if (countryItem.getCountryName().equals(coronavirusDataItem.getCountryName())) {
-                    country = countryItem;
-                } else {
-                    country = constructCountry(coronavirusDataItem);
-                }
-            }
+            country = countries.get(index);
         }
         return country;
     }
