@@ -52,7 +52,7 @@ public class CSVDataToEntityDataConverter {
     }
 
     // some countries don't have statistics of cases per date of whole country but do of their states.
-    // derives the statistics of cases per date of country from cases per state data
+    // derives the statistics of cases per date of country from cases per date of state data
     private static List<CountryCasesPerDate> constructCountryCasesPerDateByStateCasesPerDate(
             List<StateCasesPerDate> allStateCasesPerDate
     ) {
@@ -64,6 +64,7 @@ public class CSVDataToEntityDataConverter {
             Map<LocalDate, Integer> casesPerDate = countryCasesPerDate.get(country);
             casesPerDate.merge(stateCasesPerDate.getDate(), stateCasesPerDate.getNumberOfCases(), Integer::sum);
         });
+
         List<CountryCasesPerDate> countryCasesPerDateByStateCasesPerDate = new ArrayList<>();
         countryCasesPerDate.forEach((country, casesPerDate) ->
                 casesPerDate.forEach((date, cases) ->
@@ -73,6 +74,7 @@ public class CSVDataToEntityDataConverter {
     }
 
     // initial data item duplicates country for each state
+    // gets rid of country duplicates
     private static Country constructOrGetCountry(CSVCoronavirusDataItem coronavirusDataItem, List<Country> countries) {
         Country country = CSVToEntityUtils.constructCountry(coronavirusDataItem);
         int index;

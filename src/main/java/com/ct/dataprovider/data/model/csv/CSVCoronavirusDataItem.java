@@ -42,6 +42,7 @@ public class CSVCoronavirusDataItem {
                                 DateTimeFormatter.ofPattern("M/d/yy", Locale.ENGLISH)),
                         entry -> Integer.valueOf(entry.getValue())
                 ));
+
         return new CSVCoronavirusDataItem(stateName, countryName, latitude, longitude,  casesPerDate);
     }
 
