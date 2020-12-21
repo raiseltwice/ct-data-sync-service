@@ -1,7 +1,7 @@
 package com.ct.dataprovider.utils;
 
-import com.ct.dataprovider.reader.model.CSVCoronavirusDataItem;
 import com.ct.dataprovider.dao.CoronavirusEntityData;
+import com.ct.dataprovider.reader.model.CSVCoronavirusDataItem;
 import com.ct.entitycommon.entity.Country;
 import com.ct.entitycommon.entity.CountryCasesPerDate;
 import com.ct.entitycommon.entity.State;
@@ -12,10 +12,8 @@ import org.apache.commons.lang3.StringUtils;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -25,8 +23,8 @@ public class CSVToEntityUtils {
 
     public static CoronavirusEntityData constructEntityData(List<CSVCoronavirusDataItem> coronavirusDataItems) {
         log.info("Constructing coronavirus entity data...");
-        Set<Country> countries = new HashSet<>();
-        Set<State> states = new HashSet<>();
+        List<Country> countries = new ArrayList<>();
+        List<State> states = new ArrayList<>();
         List<CountryCasesPerDate> allCountryCasesPerDate = new ArrayList<>();
         List<StateCasesPerDate> allStateCasesPerDate = new ArrayList<>();
 
@@ -58,13 +56,17 @@ public class CSVToEntityUtils {
 
     // initial data item duplicates country for each state
     // gets rid of country duplicates
-    private static Country getOrConstructCountry(CSVCoronavirusDataItem coronavirusDataItem, Set<Country> countries) {
+    private static Country getOrConstructCountry(CSVCoronavirusDataItem coronavirusDataItem, List<Country> countries) {
         Country country = null;
-        for (Country countryItem : countries) {
-            if (countryItem.getCountryName().equals(coronavirusDataItem.getCountry())) {
-                country = countryItem;
-            } else {
-                country = constructCountry(coronavirusDataItem);
+        if (countries.isEmpty()) {
+            country = constructCountry(coronavirusDataItem);
+        } else {
+            for (Country countryItem : countries) {
+                if (countryItem.getCountryName().equals(coronavirusDataItem.getCountryName())) {
+                    country = countryItem;
+                } else {
+                    country = constructCountry(coronavirusDataItem);
+                }
             }
         }
         return country;
@@ -85,21 +87,21 @@ public class CSVToEntityUtils {
     }
 
     public static Country constructCountry(CSVCoronavirusDataItem coronavirusDataItem) {
-        if (StringUtils.isBlank(coronavirusDataItem.getState())) {
+        if (StringUtils.isBlank(coronavirusDataItem.getStateName())) {
             return new Country(
-                    coronavirusDataItem.getCountry(),
+                    coronavirusDataItem.getCountryName(),
                     coronavirusDataItem.getLatitude(),
                     coronavirusDataItem.getLongitude());
         } else {
-            return new Country(coronavirusDataItem.getCountry(), null, null);
+            return new Country(coronavirusDataItem.getCountryName(), null, null);
         }
     }
 
     public static State constructState(CSVCoronavirusDataItem coronavirusDataItem, Country country) {
         State state = null;
-        if (!StringUtils.isBlank(coronavirusDataItem.getState())) {
+        if (!StringUtils.isBlank(coronavirusDataItem.getStateName())) {
             state = new State(
-                    coronavirusDataItem.getState(),
+                    coronavirusDataItem.getStateName(),
                     coronavirusDataItem.getLatitude(),
                     coronavirusDataItem.getLongitude(),
                     country);

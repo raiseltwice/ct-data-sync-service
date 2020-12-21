@@ -12,8 +12,8 @@ import java.util.Map;
 @Builder
 public class CSVCoronavirusDataItem {
 
-    private String state;
-    private String country;
+    private String stateName;
+    private String countryName;
     private Double latitude;
     private Double longitude;
     private Map<LocalDate, Integer> casesPerDate;

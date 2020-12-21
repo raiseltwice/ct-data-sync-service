@@ -33,8 +33,8 @@ public class CSVDataUtils {
                 ));
 
         return CSVCoronavirusDataItem.builder()
-                .country(countryName)
-                .state(stateName)
+                .countryName(countryName)
+                .stateName(stateName)
                 .latitude(latitude)
                 .longitude(longitude)
                 .casesPerDate(casesPerDate)
