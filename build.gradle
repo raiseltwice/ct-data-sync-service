@@ -4,7 +4,7 @@ plugins {
     id 'java'
 }
 
-group 'com.ct.dataprovider'
+group 'com.ct.datasync'
 version '1.0-SNAPSHOT'
 
 repositories {

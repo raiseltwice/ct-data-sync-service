@@ -1,4 +1,4 @@
-package com.ct.dataprovider;
+package com.ct.datasync;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

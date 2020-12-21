@@ -1,4 +1,4 @@
-package com.ct.dataprovider.repository;
+package com.ct.datasync.repository;
 
 import com.ct.entitycommon.entity.State;
 import org.springframework.data.jpa.repository.JpaRepository;

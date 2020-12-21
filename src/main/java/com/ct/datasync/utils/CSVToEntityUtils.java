@@ -1,7 +1,7 @@
-package com.ct.dataprovider.utils;
+package com.ct.datasync.utils;
 
-import com.ct.dataprovider.dao.CoronavirusEntityData;
-import com.ct.dataprovider.reader.model.CSVCoronavirusDataItem;
+import com.ct.datasync.dao.CoronavirusEntityData;
+import com.ct.datasync.reader.model.CSVCoronavirusDataItem;
 import com.ct.entitycommon.entity.Country;
 import com.ct.entitycommon.entity.CountryCasesPerDate;
 import com.ct.entitycommon.entity.State;

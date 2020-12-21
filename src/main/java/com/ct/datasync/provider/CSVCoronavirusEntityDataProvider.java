@@ -1,9 +1,9 @@
-package com.ct.dataprovider.provider;
+package com.ct.datasync.provider;
 
-import com.ct.dataprovider.reader.model.CSVCoronavirusDataItem;
-import com.ct.dataprovider.utils.CSVToEntityUtils;
-import com.ct.dataprovider.reader.CSVCoronavirusDataFileReader;
-import com.ct.dataprovider.dao.CoronavirusEntityData;
+import com.ct.datasync.reader.model.CSVCoronavirusDataItem;
+import com.ct.datasync.utils.CSVToEntityUtils;
+import com.ct.datasync.reader.CSVCoronavirusDataFileReader;
+import com.ct.datasync.dao.CoronavirusEntityData;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 

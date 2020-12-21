@@ -1,4 +1,4 @@
-package com.ct.dataprovider.reader.model;
+package com.ct.datasync.reader.model;
 
 import lombok.Builder;
 import lombok.Getter;

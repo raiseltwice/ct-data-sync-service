@@ -1,4 +1,4 @@
-package com.ct.dataprovider.utils;
+package com.ct.datasync.utils;
 
 public class CSVHeaders {
 

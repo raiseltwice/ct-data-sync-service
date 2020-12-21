@@ -1,4 +1,4 @@
-package com.ct.dataprovider.dao;
+package com.ct.datasync.dao;
 
 import com.ct.entitycommon.entity.Country;
 import com.ct.entitycommon.entity.CountryCasesPerDate;

@@ -1,9 +1,9 @@
-package com.ct.dataprovider.dao;
+package com.ct.datasync.dao;
 
-import com.ct.dataprovider.repository.CasesPerCountryRepository;
-import com.ct.dataprovider.repository.CasesPerStateRepository;
-import com.ct.dataprovider.repository.CountryRepository;
-import com.ct.dataprovider.repository.StateRepository;
+import com.ct.datasync.repository.CasesPerCountryRepository;
+import com.ct.datasync.repository.CasesPerStateRepository;
+import com.ct.datasync.repository.CountryRepository;
+import com.ct.datasync.repository.StateRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
