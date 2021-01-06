@@ -1,6 +1,6 @@
 package com.ct.datasync.utils;
 
-import com.ct.datasync.service.CoronavirusEntityData;
+import com.ct.datasync.store.CoronavirusEntityData;
 import com.ct.datasync.reader.model.CSVCoronavirusDataItem;
 import com.ct.entitycommon.entity.Country;
 import com.ct.entitycommon.entity.CountryCasesPerDate;

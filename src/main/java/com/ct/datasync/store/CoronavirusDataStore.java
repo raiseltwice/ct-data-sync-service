@@ -1,4 +1,4 @@
-package com.ct.datasync.service;
+package com.ct.datasync.store;
 
 import com.ct.datasync.repository.CountryCasesPerDateRepository;
 import com.ct.datasync.repository.StateCasesPerDateRepository;

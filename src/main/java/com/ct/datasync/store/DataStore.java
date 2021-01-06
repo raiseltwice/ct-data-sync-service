@@ -1,4 +1,4 @@
-package com.ct.datasync.service;
+package com.ct.datasync.store;
 
 public interface DataStore {
 

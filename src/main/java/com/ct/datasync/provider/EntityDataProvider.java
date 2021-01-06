@@ -1,6 +1,6 @@
 package com.ct.datasync.provider;
 
-import com.ct.datasync.service.CoronavirusEntityData;
+import com.ct.datasync.store.CoronavirusEntityData;
 
 public interface EntityDataProvider {
 
