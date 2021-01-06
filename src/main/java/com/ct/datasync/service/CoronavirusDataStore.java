@@ -1,7 +1,7 @@
-package com.ct.datasync.dao;
+package com.ct.datasync.service;
 
-import com.ct.datasync.repository.CasesPerCountryRepository;
-import com.ct.datasync.repository.CasesPerStateRepository;
+import com.ct.datasync.repository.CountryCasesPerDateRepository;
+import com.ct.datasync.repository.StateCasesPerDateRepository;
 import com.ct.datasync.repository.CountryRepository;
 import com.ct.datasync.repository.StateRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -10,25 +10,25 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @Slf4j
+@Transactional
 public class CoronavirusDataStore implements DataStore {
 
     private final CountryRepository countryRepository;
     private final StateRepository stateRepository;
-    private final CasesPerCountryRepository casesPerCountryRepository;
-    private final CasesPerStateRepository casesPerStateRepository;
+    private final CountryCasesPerDateRepository countryCasesPerDateRepository;
+    private final StateCasesPerDateRepository stateCasesPerDateRepository;
 
     public CoronavirusDataStore(CountryRepository countryRepository,
                                 StateRepository stateRepository,
-                                CasesPerCountryRepository casesPerCountryRepository,
-                                CasesPerStateRepository casesPerStateRepository) {
+                                CountryCasesPerDateRepository countryCasesPerDateRepository,
+                                StateCasesPerDateRepository stateCasesPerDateRepository) {
         this.countryRepository = countryRepository;
         this.stateRepository = stateRepository;
-        this.casesPerCountryRepository = casesPerCountryRepository;
-        this.casesPerStateRepository = casesPerStateRepository;
+        this.countryCasesPerDateRepository = countryCasesPerDateRepository;
+        this.stateCasesPerDateRepository = stateCasesPerDateRepository;
     }
 
     @Override
-    @Transactional
     public void reInsertData(CoronavirusEntityData coronavirusEntityData) {
         deleteAll();
         saveAll(coronavirusEntityData);
@@ -39,16 +39,16 @@ public class CoronavirusDataStore implements DataStore {
         log.info("Saving coronavirus data...");
         countryRepository.saveAll(coronavirusEntityData.getCountries());
         stateRepository.saveAll(coronavirusEntityData.getStates());
-        casesPerCountryRepository.saveAll(coronavirusEntityData.getCasesPerCountry());
-        casesPerStateRepository.saveAll(coronavirusEntityData.getCasesPerState());
+        countryCasesPerDateRepository.saveAll(coronavirusEntityData.getCasesPerCountry());
+        stateCasesPerDateRepository.saveAll(coronavirusEntityData.getCasesPerState());
         log.info("Finished saving data");
     }
 
     @Override
     public void deleteAll() {
         log.info("Erasing all related data...");
-        casesPerCountryRepository.deleteAllInBatch();
-        casesPerStateRepository.deleteAllInBatch();
+        countryCasesPerDateRepository.deleteAllInBatch();
+        stateCasesPerDateRepository.deleteAllInBatch();
         stateRepository.deleteAllInBatch();
         countryRepository.deleteAllInBatch();
         log.info("Finished erasing the data...");

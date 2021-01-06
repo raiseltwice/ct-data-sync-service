@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CasesPerCountryRepository extends JpaRepository<CountryCasesPerDate, Long> {
+public interface CountryCasesPerDateRepository extends JpaRepository<CountryCasesPerDate, Long> {
 
 }

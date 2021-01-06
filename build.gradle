@@ -31,7 +31,6 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.16'
 
     // misc
-    compile group: 'org.apache.commons', name: 'commons-lang3'
     compile group: 'com.opencsv', name: 'opencsv', version: '5.3'
-    implementation 'com.github.raiseltwice:ct-entity-common:develop-SNAPSHOT'
+    implementation 'com.github.raiseltwice:ct-entity-common:1.10'
 }

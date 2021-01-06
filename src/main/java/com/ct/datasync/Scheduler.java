@@ -1,8 +1,8 @@
 package com.ct.datasync;
 
 import com.ct.datasync.provider.EntityDataProvider;
-import com.ct.datasync.dao.CoronavirusEntityData;
-import com.ct.datasync.dao.DataStore;
+import com.ct.datasync.service.CoronavirusEntityData;
+import com.ct.datasync.service.DataStore;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

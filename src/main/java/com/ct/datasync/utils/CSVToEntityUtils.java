@@ -1,13 +1,12 @@
 package com.ct.datasync.utils;
 
-import com.ct.datasync.dao.CoronavirusEntityData;
+import com.ct.datasync.service.CoronavirusEntityData;
 import com.ct.datasync.reader.model.CSVCoronavirusDataItem;
 import com.ct.entitycommon.entity.Country;
 import com.ct.entitycommon.entity.CountryCasesPerDate;
 import com.ct.entitycommon.entity.State;
 import com.ct.entitycommon.entity.StateCasesPerDate;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -82,7 +81,7 @@ public class CSVToEntityUtils {
     }
 
     public static Country constructCountry(CSVCoronavirusDataItem coronavirusDataItem) {
-        if (StringUtils.isBlank(coronavirusDataItem.getStateName())) {
+        if (coronavirusDataItem.getStateName() == null || coronavirusDataItem.getStateName().equals("")) {
             return new Country(
                     coronavirusDataItem.getCountryName(),
                     coronavirusDataItem.getLatitude(),
@@ -94,7 +93,7 @@ public class CSVToEntityUtils {
 
     public static State constructState(CSVCoronavirusDataItem coronavirusDataItem, Country country) {
         State state = null;
-        if (!StringUtils.isBlank(coronavirusDataItem.getStateName())) {
+        if (coronavirusDataItem.getStateName() != null && !coronavirusDataItem.getStateName().equals("")) {
             state = new State(
                     coronavirusDataItem.getStateName(),
                     coronavirusDataItem.getLatitude(),
