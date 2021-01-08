@@ -1,0 +1,26 @@
+spring:
+  profiles:
+    active: csv
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ct_user
+    password: password
+    url: jdbc:mysql://localhost:3306/ct
+    hikari:
+      data-source-properties:
+        rewriteBatchedStatements: true
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 5000
+
+app:
+  data:
+    reinsert-cron: "*/10 * * * * *"
+    provider:
+      file:
+        csv: 1.csv #local file, todo - move the file out of the project directory
+
+server:
+  port: 8079

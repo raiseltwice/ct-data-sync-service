@@ -1,0 +1,150 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1_add_country_table
+      author: bo
+      preConditions:
+        on-fail: mark_ran
+        not:
+          tableExists:
+            tableName: country
+      changes:
+        - createTable:
+            tableName: country
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_country
+              - column:
+                  name: country_name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: latitude
+                  type: decimal(10,8)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: longitude
+                  type: decimal(11,8)
+                  constraints:
+                    nullable: true
+  - changeSet:
+      id: 2_add_state_table
+      author: bo
+      preConditions:
+        on-fail: mark_ran
+        not:
+          tableExists:
+            tableName: state
+      changes:
+        - createTable:
+            tableName: state
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_state
+              - column:
+                  name: state_name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+                    unique: true
+              -  column:
+                  name: country_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_state_country_id
+                    references: country(id)
+                    nullable: false
+              - column:
+                  name: latitude
+                  type: decimal(10,8)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: longitude
+                  type: decimal(11,8)
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 3_add_country_cases_per_date_table
+      author: bo
+      preConditions:
+        on-fail: mark_ran
+        not:
+          tableExists:
+            tableName: country_cases_per_date
+      changes:
+        - createTable:
+            tableName: country_cases_per_date
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_cases
+              - column:
+                  name: country_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_cases_country_id
+                    references: country(id)
+                    nullable: false
+              - column:
+                  name: date
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: number_of_cases
+                  type: bigint
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 4_add_state_cases_per_date_table
+      author: bo
+      preConditions:
+        on-fail: mark_ran
+        not:
+          tableExists:
+            tableName: state_cases_per_date
+      changes:
+        - createTable:
+            tableName: state_cases_per_date
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_cases
+              - column:
+                  name: state_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_cases_state_id
+                    references: state(id)
+                    nullable: true
+              - column:
+                  name: date
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: number_of_cases
+                  type: bigint
+                  constraints:
+                    nullable: false

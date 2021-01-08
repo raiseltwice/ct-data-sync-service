@@ -1,0 +1,36 @@
+plugins {
+    id 'org.springframework.boot' version '2.3.3.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'java'
+}
+
+group 'com.ct.datasync'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    // test
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    // db
+    compile group: 'org.liquibase', name: 'liquibase-core', version: '4.2.1'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.22'
+
+    // spring
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa:2.4.0'
+
+    // lombok
+    compileOnly 'org.projectlombok:lombok:1.18.16'
+    annotationProcessor 'org.projectlombok:lombok:1.18.16'
+    testCompileOnly 'org.projectlombok:lombok:1.18.16'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.16'
+
+    // misc
+    compile group: 'com.opencsv', name: 'opencsv', version: '5.3'
+    implementation 'com.github.raiseltwice:ct-entity-common:1.14'
+}
