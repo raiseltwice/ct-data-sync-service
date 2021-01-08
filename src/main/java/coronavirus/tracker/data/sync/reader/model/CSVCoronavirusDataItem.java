@@ -1,4 +1,4 @@
-package com.ct.datasync.reader.model;
+package coronavirus.tracker.data.sync.reader.model;
 
 import lombok.Builder;
 import lombok.Getter;

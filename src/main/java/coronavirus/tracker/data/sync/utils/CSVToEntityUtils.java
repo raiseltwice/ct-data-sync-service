@@ -1,11 +1,11 @@
-package com.ct.datasync.utils;
+package coronavirus.tracker.data.sync.utils;
 
-import com.ct.datasync.store.CoronavirusEntityData;
-import com.ct.datasync.reader.model.CSVCoronavirusDataItem;
-import com.ct.entitycommon.entity.Country;
-import com.ct.entitycommon.entity.CountryCasesPerDate;
-import com.ct.entitycommon.entity.State;
-import com.ct.entitycommon.entity.StateCasesPerDate;
+import coronavirus.tracker.data.sync.store.CoronavirusEntityData;
+import coronavirus.tracker.data.sync.reader.model.CSVCoronavirusDataItem;
+import coronavirus.tracker.entitycommon.entity.Country;
+import coronavirus.tracker.entitycommon.entity.CountryCasesPerDate;
+import coronavirus.tracker.entitycommon.entity.State;
+import coronavirus.tracker.entitycommon.entity.StateCasesPerDate;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
@@ -56,13 +56,13 @@ public class CSVToEntityUtils {
     // gets rid of country duplicates
     private static Country getOrConstructCountry(CSVCoronavirusDataItem coronavirusDataItem, List<Country> countries) {
         Country country = CSVToEntityUtils.constructCountry(coronavirusDataItem);
-        int index;
-        // the same as contains, but reuse index
-        if ((index = countries.indexOf(country)) == -1) {
-            countries.add(country);
-        } else {
-            country = countries.get(index);
+        for (Country countryFromList : countries) {
+            if (countryFromList.getCountryName().equals(country.getCountryName())) {
+                country = countryFromList;
+                return country;
+            }
         }
+        countries.add(country);
         return country;
     }
 

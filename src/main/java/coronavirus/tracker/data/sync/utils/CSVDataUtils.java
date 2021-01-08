@@ -1,6 +1,6 @@
-package com.ct.datasync.utils;
+package coronavirus.tracker.data.sync.utils;
 
-import com.ct.datasync.reader.model.CSVCoronavirusDataItem;
+import coronavirus.tracker.data.sync.reader.model.CSVCoronavirusDataItem;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

@@ -1,6 +1,6 @@
-package com.ct.datasync.repository;
+package coronavirus.tracker.data.sync.repository;
 
-import com.ct.entitycommon.entity.State;
+import coronavirus.tracker.entitycommon.entity.State;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

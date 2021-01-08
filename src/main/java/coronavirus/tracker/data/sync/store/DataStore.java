@@ -1,4 +1,4 @@
-package com.ct.datasync.store;
+package coronavirus.tracker.data.sync.store;
 
 public interface DataStore {
 

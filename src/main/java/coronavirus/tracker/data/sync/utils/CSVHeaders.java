@@ -1,4 +1,4 @@
-package com.ct.datasync.utils;
+package coronavirus.tracker.data.sync.utils;
 
 public class CSVHeaders {
 

@@ -1,7 +1,7 @@
-package com.ct.datasync.reader;
+package coronavirus.tracker.data.sync.reader;
 
-import com.ct.datasync.reader.model.CSVCoronavirusDataItem;
-import com.ct.datasync.utils.CSVDataUtils;
+import coronavirus.tracker.data.sync.reader.model.CSVCoronavirusDataItem;
+import coronavirus.tracker.data.sync.utils.CSVDataUtils;
 import com.opencsv.CSVReaderHeaderAware;
 import com.opencsv.exceptions.CsvValidationException;
 import lombok.extern.slf4j.Slf4j;

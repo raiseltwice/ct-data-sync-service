@@ -32,5 +32,5 @@ dependencies {
 
     // misc
     compile group: 'com.opencsv', name: 'opencsv', version: '5.3'
-    implementation 'com.github.raiseltwice:ct-entity-common:1.10'
+    implementation 'com.github.raiseltwice:ct-entity-common:1.14'
 }

@@ -1,9 +1,9 @@
-package com.ct.datasync.store;
+package coronavirus.tracker.data.sync.store;
 
-import com.ct.entitycommon.entity.Country;
-import com.ct.entitycommon.entity.CountryCasesPerDate;
-import com.ct.entitycommon.entity.State;
-import com.ct.entitycommon.entity.StateCasesPerDate;
+import coronavirus.tracker.entitycommon.entity.Country;
+import coronavirus.tracker.entitycommon.entity.CountryCasesPerDate;
+import coronavirus.tracker.entitycommon.entity.State;
+import coronavirus.tracker.entitycommon.entity.StateCasesPerDate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

@@ -1,12 +1,15 @@
-package com.ct.datasync.store;
+package coronavirus.tracker.data.sync.store;
 
-import com.ct.datasync.repository.CountryCasesPerDateRepository;
-import com.ct.datasync.repository.StateCasesPerDateRepository;
-import com.ct.datasync.repository.CountryRepository;
-import com.ct.datasync.repository.StateRepository;
+import coronavirus.tracker.data.sync.repository.CountryCasesPerDateRepository;
+import coronavirus.tracker.data.sync.repository.StateCasesPerDateRepository;
+import coronavirus.tracker.data.sync.repository.CountryRepository;
+import coronavirus.tracker.data.sync.repository.StateRepository;
+import coronavirus.tracker.entitycommon.entity.Country;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.stream.Collectors;
 
 @Component
 @Slf4j
@@ -37,6 +40,7 @@ public class CoronavirusDataStore implements DataStore {
     @Override
     public void saveAll(CoronavirusEntityData coronavirusEntityData) {
         log.info("Saving coronavirus data...");
+        System.out.println(coronavirusEntityData.getCountries().stream().map(Country::getCountryName).sorted().collect(Collectors.joining(",")));
         countryRepository.saveAll(coronavirusEntityData.getCountries());
         stateRepository.saveAll(coronavirusEntityData.getStates());
         countryCasesPerDateRepository.saveAll(coronavirusEntityData.getCasesPerCountry());

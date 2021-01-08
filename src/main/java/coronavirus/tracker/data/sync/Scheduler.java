@@ -1,8 +1,8 @@
-package com.ct.datasync;
+package coronavirus.tracker.data.sync;
 
-import com.ct.datasync.provider.EntityDataProvider;
-import com.ct.datasync.store.CoronavirusEntityData;
-import com.ct.datasync.store.DataStore;
+import coronavirus.tracker.data.sync.provider.EntityDataProvider;
+import coronavirus.tracker.data.sync.store.CoronavirusEntityData;
+import coronavirus.tracker.data.sync.store.DataStore;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package com.ct.datasync;
+package coronavirus.tracker.data.sync;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,7 +7,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
-@EntityScan(basePackages="com.ct.entitycommon.*")
+@EntityScan(basePackages="coronavirus.tracker.entitycommon.*")
 public class Application {
 
     public static void main(String[] args) {
